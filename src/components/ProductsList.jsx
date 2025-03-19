@@ -7,12 +7,12 @@ const ProductsList = () => {
   return (
     <div className="mt-12 grid gap-y-8">
       {products.map((product) => {
-        const { id, title, price, image, company } = product.attributes;
+        const { title, price, image, company } = product.attributes;
         const dollarsAmount = formatPrice(price);
         return (
           <Link
-            key={id}
-            to={`/products/${id}`}
+            key={product.id}
+            to={`/products/${product.id}`}
             className="p-8 rounded-lg flex flex-col sm:flex-row gap-y-4 flex-wrap bg-base-100 shadow-xl hover:shadow-2xl duration-300 group"
           >
             <img
