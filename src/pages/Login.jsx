@@ -1,5 +1,30 @@
-import { Form, Link } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
 import { FormInput, SubmitBtn } from "../components";
+import { customFetch } from "../utils";
+import { toast } from "react-toastify";
+import { loginUser } from "../features/user/userSlice";
+
+export const action =
+  (store) =>
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    try {
+      const response = await customFetch.post("/auth/local", data);
+      // console.log(response);
+      store.dispatch(loginUser(response.data));
+      toast.success("logged in successfully");
+      return redirect("/");
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error?.response?.data?.error?.message ||
+        "please double check your credentials";
+
+      toast.error(errorMessage);
+      return null;
+    }
+  };
 
 const Login = () => {
   return (
@@ -29,7 +54,10 @@ const Login = () => {
         </button>
         <p className="text-center">
           Not a member yet?
-          <Link to="/register" className="ml-2 link link-hover link-primary capitalize">
+          <Link
+            to="/register"
+            className="ml-2 link link-hover link-primary capitalize"
+          >
             register
           </Link>
         </p>
