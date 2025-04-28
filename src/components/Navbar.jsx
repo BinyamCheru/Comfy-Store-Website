@@ -38,6 +38,7 @@ const Navbar = () => {
             </ul>
           </div>
         </div>
+        
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal">
             <NavLinks />

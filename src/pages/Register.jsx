@@ -8,7 +8,6 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
   try {
     const response = await customFetch.post("/auth/local/register", data);
-    toast.success("account created successfully");
     return redirect("/login");
   } catch (error) {
     const errorMessage =
